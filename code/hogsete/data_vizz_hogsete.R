@@ -12,11 +12,13 @@ library("scales")
 library("dataDownloader")
 # download raw data
 # download files from OSF ---------------------------------------
+
 get_file(node = "pk4bg",
          file = "Three-D_24h-cflux_hogsete_2022.csv",
          path = "clean_data",
          remote_path = "C-Flux")
-clean_hogsete <- read_csv("clean_data/Three-D_24h-cflux_hogsete_2022.csv", na = c("#N/A"))
+
+cflux_hogsete <- read_csv("clean_data/Three-D_24h-cflux_hogsete_2022.csv")
 
 cflux_hogsete <- right_join(
   cflux_hogsete, metaturf)
