@@ -1,9 +1,24 @@
-source("code/liahovden/cleaning_liahovden.R")
+## fluxes plots for presenting
+# This script will be to visualize the cleaned cflux and PAR data
+
+
+# download and generate metadata table
 source("code/metaturf.R")
 
+# load packages
+library("dataDownloader")
 library("scales")
 
-## fluxes plots for presenting
+# download raw data
+# download files from OSF ---------------------------------------
+
+get_file(node = "pk4bg",
+         file = "Three-D_24h-cflux_liahovden_2022.csv",
+         path = "clean_data",
+         remote_path = "C-Flux")
+
+
+cflux_liahovden <- read_csv("clean_data/Three-D_24h-cflux_liahovden_2022.csv")
 
 # right join the metaturf     ------------------------------------------------
 #(we are adding here the treatments, sites, and so on)
@@ -22,7 +37,7 @@ FluxPlot_liahovden <-
   mutate(
     type = str_replace_all(type, c(
       "ER" = "Ecosystem Respiration",
-      "GEP" = "Gross Primary Production"
+      "GPP" = "Gross Primary Production"
     ))
   ) %>% 
   # ggplot( aes(
