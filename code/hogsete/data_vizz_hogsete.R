@@ -32,7 +32,7 @@ FluxPlot_hogsete <-
   mutate(
     type = str_replace_all(type, c(
       "ER" = "Ecosystem Respiration",
-      "GEP" = "Gross Primary Production"
+      "GPP" = "Gross Primary Production"
     ))
   ) %>% 
   # ggplot( aes(
