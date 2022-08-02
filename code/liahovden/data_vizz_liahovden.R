@@ -61,7 +61,7 @@ FluxPlot_liahovden <-
     linetype = 2, colour = "blue", size=1) +
   
   scale_x_datetime(breaks = date_breaks("2 hour"), labels = date_format("%b %d - %H:%M")) +
-  ggtitle("Liahovden (469 m a.s.l.)\nFluctuating Ecosystem Respiration pattern over 24 hours") +
+  ggtitle("Liahovden (1267 m a.s.l.)\nFluctuating Ecosystem Respiration pattern over 24 hours") +
   ylab("CO2 umol m2 h-1") +
   xlab("Time of the day (hours)") +
   theme(strip.text.y = element_text(size = 14, colour = "black"),
