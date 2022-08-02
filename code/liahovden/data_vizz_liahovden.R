@@ -84,11 +84,6 @@ cflux_liahovden <- right_join(
 # filter(type =="ER") %>% 
 # filter(flux>=0) %>% 
 
-vikes_shade <- data.frame(xmin=as.Date('2022-07-23 22:30:00'), 
-                          xmax=as.Date('2022-07-24 04:46:00'), 
-                          ymin=-Inf, 
-                          ymax=Inf)
-
 FluxPlot_liahovden <- 
   
   cflux_liahovden %>% 
@@ -96,7 +91,7 @@ FluxPlot_liahovden <-
   mutate(
     type = str_replace_all(type, c(
       "ER" = "Ecosystem Respiration",
-      "GEP" = "Gross Primary Production"
+      "GPP" = "Gross Primary Production"
     ))
   ) %>% 
   # ggplot( aes(
