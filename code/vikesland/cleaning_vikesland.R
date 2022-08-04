@@ -71,21 +71,20 @@ co2_cut_vikesland_60 <- co2_cut_vikesland_60 %>%
   )
 
 # vizz Vikesland -------------------------------------------------------
-
-# visualizing 60 secs cuts in Vikesland (it´s in comments, just in case you don´t want to visualize it)
-
-# theme_set(theme_grey(base_size = 5))
 # 
+# # visualizing 60 secs cuts in Vikesland (it´s in comments, just in case you don´t want to visualize it)
+# 
+# theme_set(theme_grey(base_size = 5))
 # co2_cut_vikesland_60 %>%
-#   ggplot(aes(x = datetime, y = CO2, colour = cut)) +
-#   geom_line(size = 0.2, aes(group = fluxID)) +
-#   # geom_line(size = 0.2) +
-#   scale_x_datetime(date_breaks = "1 min", minor_breaks = "10 sec", date_labels = "%e/%m \n %H:%M") +
-#   # scale_x_date(date_labels = "%H:%M:%S") +
-#   facet_wrap(vars(fluxID), ncol = 30, scales = "free")
-
+#    ggplot(aes(x = datetime, y = CO2, colour = cut)) +
+#    geom_line(size = 0.2, aes(group = fluxID)) +
+#    # geom_line(size = 0.2) +
+#    scale_x_datetime(date_breaks = "1 min", minor_breaks = "10 sec", date_labels = "%e/%m \n %H:%M") +
+#    # scale_x_date(date_labels = "%H:%M:%S") +
+#    facet_wrap(vars(fluxID), ncol = 30, scales = "free")
+# 
 # ggsave("fluxes_details_vikesland.png", height = 40, width = 80, units = "cm")
-
+# 
 
 # produce clean CO2 cut --------------------------------------------------------
 
@@ -111,11 +110,13 @@ filter(co2_cut_60_keep, type == "NEE") %>% #faster than looking at the graph!
 # ER ---------------------------------
 
 filt_ER_60 <- filter(co2_cut_60_keep, type == "ER") # I am just filtering to make things easier
+
 # quick base R plot of PAR vs time
 plot(x= filt_ER_60$datetime, y= filt_ER_60$PAR,
      xlab = "Time of the day (hours)", 
      ylab = "Photosynthetically active radiation (PAR)",
      col = alpha("black", 0.1), pch=20, main= "Vikesland (469 m a.s.l.)\nPAR during ER measures")
+
 abline(h=0, col="red")
 
 ## same plot on ggplot2
@@ -145,7 +146,7 @@ PAR_wrong_duringER_plot <- co2_cut_60_keep %>%
         plot.title = element_text(size=16))
 # panel.background = element_rect(
 #  fill = 'white', colour = 'grey'))
-
+PAR_wrong_duringER_plot
 
 # now we are replacing negative PAR values in type=ER by zero values.
 
@@ -193,6 +194,7 @@ PAR_right_duringER_plot <- co2_cut_60_keep %>%
 # panel.background = element_rect(
 #  fill = 'white', colour = 'grey'))
 
+PAR_right_duringER_plot
 
 #unique(filt_ER_60[filt_ER_60$PAR > 60,]$fluxID) # identify the weird values 
 #range(filt_ER_60[filt_ER_60$PAR > 60,]$PAR) # and the PAR levels (no big deal)
@@ -377,22 +379,22 @@ cflux_vikesland <- co2_cut_60_keep %>%
 #     # ),
 #     turfID = as_factor(turfID),
 #     type = as_factor(type)
-#   ) %>% 
+#   ) %>%
 #   select(!c(fluxID)) %>%
-#   # pivot_wider(names_from = type, values_from = PARavg, names_prefix = "PARavg_") %>% 
+#   # pivot_wider(names_from = type, values_from = PARavg, names_prefix = "PARavg_") %>%
 #   # select(!c(PAR_corrected_flux)) %>%
 #   # select(campaign, turfID, date, type, corrected_flux) %>%
-#   pivot_wider(names_from = type, values_from = c(flux, temp_soilavg, datetime, PARavg)) %>% 
-#   
-#   # pivot_wider(names_from = type, values_from = c(flux, temp_soilavg)) %>% 
+#   pivot_wider(names_from = type, values_from = c(flux, temp_soilavg, datetime, PARavg)) %>%
+# 
+#   # pivot_wider(names_from = type, values_from = c(flux, temp_soilavg)) %>%
 #   rename(
 #     ER = flux_ER,
 #     NEE = flux_NEE
 #   ) %>%
 #   mutate(
 #     GEP = NEE - ER
-#   ) %>% 
-#   pivot_longer(c(ER, NEE, GEP), names_to = "type", values_to = "flux") %>% 
+#   ) %>%
+#   pivot_longer(c(ER, NEE, GEP), names_to = "type", values_to = "flux") %>%
 #   mutate(
 #     temp_soil = case_when(
 #       type == "ER" ~ temp_soilavg_ER,
@@ -409,7 +411,7 @@ cflux_vikesland <- co2_cut_60_keep %>%
 #       type == "NEE" ~ datetime_NEE,
 #       type == "GEP" ~ datetime_NEE
 #     )
-#   ) %>% 
+#   ) %>%
 #   select(!c(temp_soilavg_ER, temp_soilavg_NEE, PARavg_ER, PARavg_NEE, datetime_ER, datetime_NEE))
 
 cflux_vikesland <- GPP.PFTC6(cflux_vikesland)
@@ -420,7 +422,7 @@ cflux_vikesland <- cflux_vikesland[!(cflux_vikesland$type=="ER" & cflux_vikeslan
 # remove negative ER values (no sense)
 cflux_vikesland <- cflux_vikesland[!(cflux_vikesland$type=="GEP" & cflux_vikesland$flux < -200),]
 
-cflux_vikesland <- cflux_vikesland[!(cflux_vikesland$type=="GEP" & cflux_vikesland$flux > 100),]
+#cflux_vikesland <- cflux_vikesland[!(cflux_vikesland$type=="GEP" & cflux_vikesland$flux > 100),]
 
 write_csv(cflux_vikesland, "clean_data/Three-D_24h-cflux_vikesland_2022.csv")
 
