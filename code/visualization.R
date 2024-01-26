@@ -12,12 +12,12 @@ lapply(my_packages, library, character.only = TRUE)
 get_file(node = "fcbw4",
          file = "PFTC6_24h_cflux_allsites_2022.csv",
          path = "clean_data",
-         remote_path = "c_flux_data")
+         remote_path = "v. c_flux_data")
 
 get_file(node = "fcbw4",
          file = "PFTC6_microclimate_allsites_2022.csv",
          path = "clean_data",
-         remote_path = "microclimate")
+         remote_path = "vii. microclimate")
 
 fluxes <- read_csv("clean_data/PFTC6_24h_cflux_allsites_2022.csv")
 
